@@ -19,4 +19,4 @@ endif(MINGW)
 
 add_subdirectory(src/obj)
 
-target_compile_definitions(game PUBLIC MONKEY_OBJ_PATH="${CMAKE_SOURCE_DIR}/monkey.obj")
+target_compile_definitions(game PUBLIC MONKEY_OBJ_PATH="${CMAKE_SOURCE_DIR}/data/monkey.obj")
