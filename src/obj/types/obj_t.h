@@ -1,4 +1,8 @@
-
+/**
+ * @author nsix
+ * @file obj_t.h
+ * @brief Defines the obj_t struct for obj files
+ */
 
 #ifndef GAME_OBJ_H
 #define GAME_OBJ_H

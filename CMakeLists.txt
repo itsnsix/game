@@ -1,14 +1,22 @@
 cmake_minimum_required(VERSION 3.10)
-project(racing-game)
+project(game)
 
-add_executable(racing-game main.c)
+add_executable(game main.c)
+
+include_directories(
+        ${CMAKE_SOURCE_DIR}/src/obj/types
+        ${CMAKE_SOURCE_DIR}/src/obj/loadObj
+        ${CMAKE_SOURCE_DIR}/src/obj/utils
+        ${CMAKE_SOURCE_DIR}/src/testUtils)
 
 if (MINGW)
     link_directories(C:\\MinGW\\lib)
     include_directories(C:\\MinGW\\include)
-    target_link_libraries(racing-game mingw32 SDL2main SDL2 glew32 opengl32)
+    target_link_libraries(game mingw32 SDL2main SDL2 glew32 opengl32 obj)
 else()
-    target_link_libraries(racing-game SDL2 SDL2main GLEW GL)
+    target_link_libraries(game SDL2 SDL2main GLEW GL obj)
 endif(MINGW)
 
 add_subdirectory(src/obj)
+
+target_compile_definitions(game PUBLIC MONKEY_OBJ_PATH="${CMAKE_SOURCE_DIR}/monkey.obj")

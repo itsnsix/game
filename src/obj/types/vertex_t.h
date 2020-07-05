@@ -11,7 +11,7 @@ typedef struct vertex_t {
     float x;
     float y;
     float z;
-    unsigned int vertIndex;
+    unsigned int index;
     struct vertex_t *next;
     struct vertex_t *last;
 } vertex_t;

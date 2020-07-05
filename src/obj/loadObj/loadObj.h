@@ -3,22 +3,24 @@
 #ifndef GAME_LOADOBJ_H
 #define GAME_LOADOBJ_H
 
+#include <stdio.h>
+#include <string.h>
 #include "obj_t.h"
+#include "objUtils.h"
 
 /**
  * @function loadOBJ
  * @brief loads an obj data information from a string
  * @param data - the string containing the obj data
- * @param obj - pointer to the object to load it into
+ * @return obj - obj_t initialized with the verts and faces from the data
  */
-void loadObj(const char *data, obj_t *obj);
-
+obj_t *loadObj(char *data);
 /**
  * @function loadObjFromFile
  * @brief reads obj data from file into an obj_t struct
- * @param file - Path to the file to load
- * @param obj - pointer to the object to load data into
+ * @param filePath - Path to the file to load
+ * @return obj - obj_t initialized with the verts and faces from the data
  */
-void loadObjFromFile(const char *file, obj_t *obj);
+obj_t *loadObjFromFile(const char *filePath);
 
 #endif //GAME_LOADOBJ_H

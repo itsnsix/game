@@ -4,15 +4,16 @@
  * @brief Unit test for objUtils
  */
 
-#include <stdio.h>
+#include <malloc.h>
 #include "objUtils.h"
+#include "loadObj.h"
 #include "testUtils.h"
 
 void setup() {
 
 }
 
-void tearDown() {
+void teardown() {
 
 }
 
@@ -53,7 +54,7 @@ void test_addVertToEnd() {
     vertex_t *vert0 = obj->startVertex;
     assert("obj has 1 vert", obj->vertexCount == 1);
     assert("vert0 is not null", vert0 != NULL);
-    assert("vert0 has correct index", vert0->vertIndex == 1);
+    assert("vert0 has correct index", vert0->index == 1);
     assert("vert0 has correct x coordinates", vert0->x == 0.0f);
     assert("vert0 has correct y coordinates", vert0->y == 0.0f);
     assert("vert0 has correct z coordinates", vert0->z == 0.0f);
@@ -67,7 +68,7 @@ void test_addVertToEnd() {
     assert("vert0 does not have null next", vert0->next != NULL);
     assert("vert1 has null next", vert1->next == NULL);
     assert("vert1 does not have last", vert1->last != NULL);
-    assert("vert1 has correct index", obj->startVertex->next->vertIndex == 2);
+    assert("vert1 has correct index", obj->startVertex->next->index == 2);
     assert("vert0->next points to vert1", vert0->next == vert1);
     assert("vert1->last points to vert0", vert1->last == vert0);
 
@@ -75,7 +76,7 @@ void test_addVertToEnd() {
     vertex_t *vert2 = vert1->next;
 
     assert("obj has 3 verts", obj->vertexCount == 3);
-    assert("vert2 has correct index", vert2->vertIndex == 3);
+    assert("vert2 has correct index", vert2->index == 3);
     assert("vert2 has null next", vert2->next == NULL);
     assert("vert2 does not have null last", vert2->last != NULL);
     assert("vert1->next points to vert2", vert1->next == vert2);
@@ -89,7 +90,7 @@ void test_addFaceToEnd() {
     face_t *face0 = obj->startFace;
     assert("obj has 1 face", obj->faceCount == 1);
     assert("face0 is not null", face0 != NULL);
-    assert("face0 has the correct face index", face0->faceIndex == 1);
+    assert("face0 has the correct face index", face0->index == 1);
     assert("face0 has the correct vertex indices",
            face0->vertIndex1 == 0 && face0->vertIndex2 == 0 && face0->vertIndex3 == 0);
     assert("face0 last is null", face0->last == NULL);
@@ -120,7 +121,7 @@ void test_setVertCoordinates() {
     assert("vert0 has correct x coordinates", vert0->x == 0.0f);
     assert("vert0 has correct y coordinates", vert0->y == 0.0f);
     assert("vert0 has correct z coordinates", vert0->z == 0.0f);
-    setVertCoordinates(obj, vert0->vertIndex, -0.5f, 0.5f, -0.5f);
+    setVertCoordinates(obj, vert0->index, -0.5f, 0.5f, -0.5f);
     assert("vert0 has correct x coordinates", vert0->x == -0.5f);
     assert("vert0 has correct y coordinates", vert0->y == 0.5f);
     assert("vert0 has correct z coordinates", vert0->z == -0.5f);
@@ -143,19 +144,19 @@ void test_setFaceVertIndices() {
     addFaceToEnd(obj);
     face_t *face = obj->startFace;
 
-    setFaceVertIndices(obj, face->faceIndex, v1->vertIndex, v2->vertIndex, v3->vertIndex);
+    setFaceVertIndices(obj, face->index, v1->index, v2->index, v3->index);
 
-    assert("face has the correct vert indices 1", face->vertIndex1 == v1->vertIndex);
-    assert("face has the correct vert indices 2", face->vertIndex2 == v2->vertIndex);
-    assert("face has the correct vert indices 3", face->vertIndex3 == v3->vertIndex);
+    assert("face has the correct vert indices 1", face->vertIndex1 == v1->index);
+    assert("face has the correct vert indices 2", face->vertIndex2 == v2->index);
+    assert("face has the correct vert indices 3", face->vertIndex3 == v3->index);
 
-    int result = setFaceVertIndices(obj, 10, v1->vertIndex, v2->vertIndex, v3->vertIndex);
+    int result = setFaceVertIndices(obj, 10, v1->index, v2->index, v3->index);
     assert("setFaceVertIndices returns -1 if it can't find the face", result == -1);
-    result = setFaceVertIndices(obj, face->faceIndex, 10, v2->vertIndex, v3->vertIndex);
+    result = setFaceVertIndices(obj, face->index, 10, v2->index, v3->index);
     assert("setFaceVertIndices returns -1 if it can't find v1", result == -1);
-    result = setFaceVertIndices(obj, face->faceIndex, v1->vertIndex, 10, v3->vertIndex);
+    result = setFaceVertIndices(obj, face->index, v1->index, 10, v3->index);
     assert("setFaceVertIndices returns -1 if it can't find v2", result == -1);
-    result = setFaceVertIndices(obj, face->faceIndex, v1->vertIndex, v2->vertIndex, 10);
+    result = setFaceVertIndices(obj, face->index, v1->index, v2->index, 10);
     assert("setFaceVertIndices returns -1 if it can't find v3", result == -1);
 
     deleteObj(&obj);
@@ -170,11 +171,11 @@ void test_findVert() {
     addVertToEnd(obj);
     vertex_t *v3 = v2->next;
 
-    vertex_t *vert = findVert(obj, v1->vertIndex);
+    vertex_t *vert = findVert(obj, v1->index);
     assert("find vert found the correct vert", vert == v1);
-    vert = findVert(obj, v2->vertIndex);
+    vert = findVert(obj, v2->index);
     assert("find vert found the correct vert", vert == v2);
-    vert = findVert(obj, v3->vertIndex);
+    vert = findVert(obj, v3->index);
     assert("find vert found the correct vert", vert == v3);
     vert = findVert(obj, 100);
     assert("find vert returned null when it couldn't find the vert", vert == NULL);
@@ -191,11 +192,11 @@ void test_findFace() {
     addFaceToEnd(obj);
     face_t *f3 = f2->next;
 
-    face_t *face = findFace(obj, f1->faceIndex);
+    face_t *face = findFace(obj, f1->index);
     assert("find face found the correct face", face == f1);
-    face = findFace(obj, f2->faceIndex);
+    face = findFace(obj, f2->index);
     assert("find face found the correct face", face == f2);
-    face = findFace(obj, f3->faceIndex);
+    face = findFace(obj, f3->index);
     assert("find face found the correct face", face == f3);
     face = findFace(obj, 100);
     assert("find face returned null when it couldn't find the face", face == NULL);
@@ -203,8 +204,41 @@ void test_findFace() {
     deleteObj(&obj);
 }
 
+void test_flattenVerts() {
+    char objData[] =
+            "v -1.000000 0.000000 1.000000\n"
+            "v 1.000000 0.000000 1.000000\n"
+            "v -1.000000 0.000000 -1.000000\n"
+            "s off\n"
+            "f 3 2 1";
+    obj_t *obj = loadObj(objData);
+
+    float *verts = flattenVerts(obj);
+    assert("vert1 has correct coordinates", verts[0] == -1.000000 && verts[1] == 0.000000 && verts[2] == 1.000000);
+    assert("vert2 has correct coordinates", verts[3] == 1.000000 && verts[4] == 0.000000 && verts[5] == 1.000000);
+    assert("vert3 has correct coordinates", verts[6] == -1.000000 && verts[7] == 0.000000 && verts[8] == -1.000000);
+    free(verts);
+    deleteObj(&obj);
+}
+
+void test_flattenFaces() {
+    char objData[] =
+            "v -1.000000 0.000000 1.000000\n"
+            "v 1.000000 0.000000 1.000000\n"
+            "v -1.000000 0.000000 -1.000000\n"
+            "v 1.000000 0.000000 -1.000000\n"
+            "f 4 3 2\n"
+            "f 3 1 2";
+    obj_t *obj = loadObj(objData);
+    unsigned int *faces = flattenFaces(obj);
+    assert("face1 has correct indices", faces[0] == 3 && faces[1] == 2 && faces[2] == 1);
+    assert("face1 has correct indices", faces[3] == 2 && faces[4] == 0 && faces[5] == 1);
+    free(faces);
+    deleteObj(&obj);
+}
+
 int main() {
-    initSuite("objUtils", &setup, &tearDown);
+    initSuite("objUtils", &setup, &teardown);
     addTest(test_createObj);
     addTest(test_deleteObj);
     addTest(test_setObjName);
@@ -214,6 +248,8 @@ int main() {
     addTest(test_setFaceVertIndices);
     addTest(test_findVert);
     addTest(test_findFace);
+    addTest(test_flattenVerts);
+    addTest(test_flattenFaces);
     runTests();
     return 0;
 }

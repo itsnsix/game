@@ -3,6 +3,10 @@
 #ifndef GAME_OBJUTILS_H
 #define GAME_OBJUTILS_H
 
+#include <stddef.h>
+#include <string.h>
+#include <stdio.h>
+#include <malloc.h>
 #include "obj_t.h"
 
 /**
@@ -33,8 +37,9 @@ void setObjName(obj_t *obj, char *newName);
  * @function addVertToEnd
  * @brief adds a vertex_t type to the end with values properly initialized
  * @param obj - pointer to the obj_t to add vertex to.
+ * @return pointer to vertex that was created
  */
-void addVertToEnd(obj_t *obj);
+vertex_t *addVertToEnd(obj_t *obj);
 
 /**
  * @function setVertCoordinates
@@ -51,8 +56,9 @@ int setVertCoordinates(obj_t *obj, unsigned int vertexIndex, float x, float y, f
  * @funciton addFaceToEnd
  * @brief adds face to an obj
  * @param obj - pointer to the obj to add the face to.
+ * @return pointer to vertex that was created
  */
-void addFaceToEnd(obj_t *obj);
+face_t *addFaceToEnd(obj_t *obj);
 
 /**
  * @function setFaceVertIndices
@@ -82,6 +88,21 @@ vertex_t *findVert(obj_t *obj, unsigned int vertIndex);
  */
 face_t *findFace(obj_t *obj, unsigned int faceIndex);
 
+/**
+ * @function flattenVert
+ * @param obj - pointer to obj to flatten into an array
+ * @return an array of floats where each float is the a vertex coordinate [x1, y1, z1, ... xN, yN, zN]
+ * N is the number of verts
+ */
+float *flattenVerts(obj_t *obj);
+
+/**
+ * @function flattenFaces
+ * @param obj - pointer to obj to flatten into an array
+ * @return an array of ints where each int is a vertex index faces are assumed triangles
+ * @warning this will start indexing at 0 for openGL
+ */
+unsigned int *flattenFaces(obj_t *obj);
 
 
 #endif //GAME_OBJUTILS_H
