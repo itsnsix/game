@@ -40,7 +40,8 @@ void deleteObj(obj_t **obj) {
         vertIndex = NULL;
         vertFreeCount++;
         if (vertFreeCount != (*obj)->vertexCount) {
-            printf("Warning: Possible memory leak.\nFreed Vert Count: %d\nDeclared Vert Count: %d\n", vertFreeCount, (*obj)->vertexCount);
+            printf("Warning: Possible memory leak.\nFreed Vert Count: %d\nDeclared Vert Count: %d\n", vertFreeCount,
+                   (*obj)->vertexCount);
         }
     }
 
@@ -53,8 +54,12 @@ void deleteObj(obj_t **obj) {
             faceIndex->last = NULL;
             faceFreeCount++;
         }
+        free(faceIndex);
+        faceIndex = NULL;
+        faceFreeCount++;
         if (faceFreeCount != (*obj)->faceCount) {
-            printf("Warning: Possible memory leak.\nFace Vert Count: %d\nDeclared Face Count: %d\n", vertFreeCount, (*obj)->vertexCount);
+            printf("Warning: Possible memory leak.\nFace Vert Count: %d\nDeclared Face Count: %d\n", vertFreeCount,
+                   (*obj)->vertexCount);
         }
     }
 
@@ -98,10 +103,15 @@ void addVertToEnd(obj_t *obj) {
     vertex->vertIndex = count;
 }
 
-void setVertCoordinates(vertex_t *vertex, float x, float y, float z) {
-    vertex->x = x;
-    vertex->y = y;
-    vertex->z = z;
+int setVertCoordinates(obj_t *obj, unsigned int vertIndex, float x, float y, float z) {
+    vertex_t *vertex = findVert(obj, vertIndex);
+    if (vertex != NULL) {
+        vertex->x = x;
+        vertex->y = y;
+        vertex->z = z;
+        return 0;
+    }
+    return -1;
 }
 
 void addFaceToEnd(obj_t *obj) {
@@ -117,7 +127,7 @@ void addFaceToEnd(obj_t *obj) {
         obj->startFace = face;
     } else {
         face_t *faceIndex = obj->startFace;
-        while (faceIndex->next != NULL){
+        while (faceIndex->next != NULL) {
             count++;
             faceIndex = faceIndex->next;
         }
@@ -129,8 +139,53 @@ void addFaceToEnd(obj_t *obj) {
     face->faceIndex = count;
 }
 
-void setFaceVertIndices(face_t *face, vertex_t *v1, vertex_t *v2, vertex_t *v3) {
+int setFaceVertIndices(obj_t *obj, unsigned int fI, unsigned int v1I, unsigned int v2I, unsigned int v3I) {
+    face_t *face = findFace(obj, fI);
+    vertex_t *v1 = findVert(obj, v1I);
+    vertex_t *v2 = findVert(obj, v2I);
+    vertex_t *v3 = findVert(obj, v3I);
+
+    if (face == NULL || v1 == NULL || v2 == NULL || v3 == NULL) {
+        return -1;
+    }
+
     face->vertIndex1 = v1->vertIndex;
     face->vertIndex2 = v2->vertIndex;
     face->vertIndex3 = v3->vertIndex;
+
+    return 0;
+}
+
+vertex_t *findVert(obj_t *obj, unsigned int vertIndex) {
+    vertex_t *vertex = obj->startVertex;
+
+    if (vertex == NULL) {
+        return NULL;
+    }
+
+    while (vertex != NULL) {
+        if (vertex->vertIndex == vertIndex) {
+            return vertex;
+        }
+        vertex = vertex->next;
+    }
+
+    return NULL;
+}
+
+face_t *findFace(obj_t *obj, unsigned int faceIndex) {
+    face_t *face = obj->startFace;
+
+    if (face == NULL) {
+        return NULL;
+    }
+
+    while (face != NULL) {
+        if (face->faceIndex == faceIndex) {
+            return face;
+        }
+        face = face->next;
+    }
+
+    return NULL;
 }

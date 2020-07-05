@@ -39,12 +39,13 @@ void addVertToEnd(obj_t *obj);
 /**
  * @function setVertCoordinates
  * @breif sets the coordinates of a vertex
- * @param vert - pointer to vertex to set
+ * @param obj - obj with vertex to assign
+ * @param vertexIndex - index of vert to assign
  * @param x - x coordinate
  * @param y - y coordinate
  * @param z - z coordinate
  */
-void setVertCoordinates(vertex_t *vert, float x, float y, float z);
+int setVertCoordinates(obj_t *obj, unsigned int vertexIndex, float x, float y, float z);
 
 /**
  * @funciton addFaceToEnd
@@ -59,7 +60,28 @@ void addFaceToEnd(obj_t *obj);
  * @param v1 - First vertex assigned to face->vertexIndex1
  * @param v2 - Second vertex assigned to face->vertexIndex2
  * @param v3 - Third vertex assigned to face-vertexIndesx3
+ * @return returns -1 if it failed 0 if it succeeded
  */
-void setFaceVertIndices(face_t *face, vertex_t *v1, vertex_t *v2, vertex_t *v3);
+int setFaceVertIndices(obj_t *obj, unsigned int fI, unsigned int v1I, unsigned int v2I, unsigned int v3I);
+
+/**
+ * @function findVert
+ * @brief returns a pointer to the vertex specified at the index
+ * @param obj - pointer to obj containing the vert to find
+ * @param vertIndex - index of vert to find
+ * @return pointer to the found vert or NULL
+ */
+vertex_t *findVert(obj_t *obj, unsigned int vertIndex);
+
+/**
+ * @function findFace
+ * @brief returns a pointer to the face specified at the index
+ * @param obj - pointer to obj containing the feac to find
+ * @param faceIndex - index of face to find
+ * @return pointer to the found face or NULL
+ */
+face_t *findFace(obj_t *obj, unsigned int faceIndex);
+
+
 
 #endif //GAME_OBJUTILS_H
