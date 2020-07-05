@@ -4,8 +4,8 @@
  * @brief Mini home-grown testing framework
  */
 
-#ifndef RACING_GAME_TESTUTILS_H
-#define RACING_GAME_TESTUTILS_H
+#ifndef GAME_TESTUTILS_H
+#define GAME_TESTUTILS_H
 
 #include <stdio.h>
 #include <string.h>
@@ -93,4 +93,4 @@ void runTests() {
     printResults();
 }
 
-#endif //RACING_GAME_TESTUTILS_H
+#endif //GAME_TESTUTILS_H

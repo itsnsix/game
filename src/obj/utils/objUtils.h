@@ -1,7 +1,7 @@
 
 
-#ifndef RACING_GAME_OBJUTILS_H
-#define RACING_GAME_OBJUTILS_H
+#ifndef GAME_OBJUTILS_H
+#define GAME_OBJUTILS_H
 
 #include "obj_t.h"
 
@@ -53,4 +53,13 @@ void setVertCoordinates(vertex_t *vert, float x, float y, float z);
  */
 void addFaceToEnd(obj_t *obj);
 
-#endif //RACING_GAME_OBJUTILS_H
+/**
+ * @function setFaceVertIndices
+ * @brief assigns the vertices that make up a face
+ * @param v1 - First vertex assigned to face->vertexIndex1
+ * @param v2 - Second vertex assigned to face->vertexIndex2
+ * @param v3 - Third vertex assigned to face-vertexIndesx3
+ */
+void setFaceVertIndices(face_t *face, vertex_t *v1, vertex_t *v2, vertex_t *v3);
+
+#endif //GAME_OBJUTILS_H

@@ -44,6 +44,20 @@ void deleteObj(obj_t **obj) {
         }
     }
 
+    unsigned int faceFreeCount = 0;
+    if ((*obj)->startFace != NULL) {
+        face_t *faceIndex = (*obj)->startFace;
+        while (faceIndex->next != NULL) {
+            faceIndex = faceIndex->next;
+            free(faceIndex->last);
+            faceIndex->last = NULL;
+            faceFreeCount++;
+        }
+        if (faceFreeCount != (*obj)->faceCount) {
+            printf("Warning: Possible memory leak.\nFace Vert Count: %d\nDeclared Face Count: %d\n", vertFreeCount, (*obj)->vertexCount);
+        }
+    }
+
     free(*obj);
     *obj = NULL;
 }
@@ -94,4 +108,29 @@ void addFaceToEnd(obj_t *obj) {
     face_t *face = (face_t *) malloc(sizeof(face_t));
     face->vertIndex1 = 0;
     face->vertIndex2 = 0;
+    face->vertIndex3 = 0;
+    face->next = NULL;
+    face->last = NULL;
+
+    unsigned int count = 1;
+    if (obj->startFace == NULL) {
+        obj->startFace = face;
+    } else {
+        face_t *faceIndex = obj->startFace;
+        while (faceIndex->next != NULL){
+            count++;
+            faceIndex = faceIndex->next;
+        }
+        count++;
+        faceIndex->next = face;
+        face->last = faceIndex;
+    }
+    obj->faceCount = count;
+    face->faceIndex = count;
+}
+
+void setFaceVertIndices(face_t *face, vertex_t *v1, vertex_t *v2, vertex_t *v3) {
+    face->vertIndex1 = v1->vertIndex;
+    face->vertIndex2 = v2->vertIndex;
+    face->vertIndex3 = v3->vertIndex;
 }

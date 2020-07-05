@@ -1,9 +1,9 @@
 
 
-#ifndef RACING_GAME_FACE_T_H
-#define RACING_GAME_FACE_T_H
+#ifndef GAME_FACE_T_H
+#define GAME_FACE_T_H
 
-typedef struct {
+typedef struct face_t {
     unsigned int vertIndex1;
     unsigned int vertIndex2;
     unsigned int vertIndex3;
@@ -12,4 +12,4 @@ typedef struct {
     struct face_t *last;
 } face_t;
 
-#endif //RACING_GAME_FACE_T_H
+#endif //GAME_FACE_T_H

@@ -5,8 +5,8 @@
  * @note vertex indices start at 1 -- same as obj files
  */
 
-#ifndef RACING_GAME_VERTEX_T_H
-#define RACING_GAME_VERTEX_T_H
+#ifndef GAME_VERTEX_T_H
+#define GAME_VERTEX_T_H
 typedef struct vertex_t {
     float x;
     float y;
@@ -15,4 +15,4 @@ typedef struct vertex_t {
     struct vertex_t *next;
     struct vertex_t *last;
 } vertex_t;
-#endif //RACING_GAME_VERTEX_T_H
+#endif //GAME_VERTEX_T_H

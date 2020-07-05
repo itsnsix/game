@@ -1,7 +1,7 @@
 
 
-#ifndef RACING_GAME_OBJ_H
-#define RACING_GAME_OBJ_H
+#ifndef GAME_OBJ_H
+#define GAME_OBJ_H
 #include "vertex_t.h"
 #include "face_t.h"
 
@@ -13,4 +13,4 @@ typedef struct {
     vertex_t *startVertex;
     face_t *startFace;
 } obj_t;
-#endif //RACING_GAME_OBJ_H
+#endif //GAME_OBJ_H

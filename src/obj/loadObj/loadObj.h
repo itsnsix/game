@@ -1,7 +1,7 @@
 
 
-#ifndef RACING_GAME_LOADOBJ_H
-#define RACING_GAME_LOADOBJ_H
+#ifndef GAME_LOADOBJ_H
+#define GAME_LOADOBJ_H
 
 #include "obj_t.h"
 
@@ -21,4 +21,4 @@ void loadObj(const char *data, obj_t *obj);
  */
 void loadObjFromFile(const char *file, obj_t *obj);
 
-#endif //RACING_GAME_LOADOBJ_H
+#endif //GAME_LOADOBJ_H

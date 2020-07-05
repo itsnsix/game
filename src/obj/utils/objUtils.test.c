@@ -83,6 +83,10 @@ void test_addVertToEnd() {
     deleteObj(&obj);
 }
 
+void test_addFaceToEnd() {
+
+}
+
 void test_setVertCoordinates() {
     obj_t *obj = createObj();
     addVertToEnd(obj);
@@ -103,6 +107,7 @@ int main() {
     addTest(test_deleteObj);
     addTest(test_setObjName);
     addTest(test_addVertToEnd);
+    addTest(test_addFaceToEnd);
     addTest(test_setVertCoordinates);
     runTests();
     return 0;
