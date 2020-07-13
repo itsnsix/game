@@ -20,4 +20,3 @@ endif(MINGW)
 
 add_executable(glslUtils.test.bin ./utils/glslUtils.test.c)
 target_link_libraries(glslUtils.test.bin obj)
-set_target_properties(glslUtils.test.bin PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/testbin)

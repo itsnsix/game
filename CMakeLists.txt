@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 project(game)
 
 add_executable(game main.c)
-
 include_directories(
         ${CMAKE_SOURCE_DIR}/src/obj/types
         ${CMAKE_SOURCE_DIR}/src/obj/loadObj
