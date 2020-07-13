@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 #include "obj_t.h"
 #include "objUtils.h"
 

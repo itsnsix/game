@@ -12,11 +12,12 @@ include_directories(
 if (MINGW)
     link_directories(C:\\MinGW\\lib)
     include_directories(C:\\MinGW\\include)
-    target_link_libraries(game mingw32 SDL2main SDL2 glew32 opengl32 obj)
+    target_link_libraries(game mingw32 SDL2main SDL2 glew32 opengl32 obj glsl)
 else()
-    target_link_libraries(game SDL2 SDL2main GLEW GL obj)
+    target_link_libraries(game SDL2 SDL2main GLEW GL obj glsl)
 endif(MINGW)
 
 add_subdirectory(src/obj)
+add_subdirectory(src/glsl)
 
-target_compile_definitions(game PUBLIC MONKEY_OBJ_PATH="${CMAKE_SOURCE_DIR}/data/monkey.obj")
+target_compile_definitions(game PUBLIC DATA_DIR="${CMAKE_SOURCE_DIR}/data/")

@@ -43,6 +43,10 @@ obj_t *loadObj(char *data) {
 
 obj_t *loadObjFromFile(const char *filePath) {
     FILE *file = fopen(filePath, "r");
+    if (file == NULL) {
+        printf("Couldn't open file. errno: %d\n", errno);
+        return NULL;
+    }
     fseek(file, 0, SEEK_END);
     long fsize = ftell(file);
     fseek(file, 0, SEEK_SET);
