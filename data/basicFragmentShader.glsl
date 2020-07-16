@@ -2,9 +2,9 @@
 
 out vec4 LFragment;
 
-in vec4 vertexColor;
+uniform vec4 ourColor;
 
 void main() {
-    //LFragment = vec4( 1.0, 1.0, 1.0, 1.0 );
-    LFragment = vertexColor;
+    //LFragment = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    LFragment = ourColor;
 }

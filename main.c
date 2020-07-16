@@ -4,6 +4,8 @@
 #include <GL/glu.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <math.h>
 #include "src/obj/types/obj_t.h"
 #include "src/obj/loadObj/loadObj.h"
 #include "src/obj/utils/objUtils.h"
@@ -31,7 +33,7 @@ void render();
 
 
 int main(int argc, char *argv[]) {
-    obj = loadObjFromFile(DATA_DIR "monkey.obj");
+    obj = loadObjFromFile(DATA_DIR "plane.obj");
     setenv("DISPLAY", "127.0.0.1:0", 1);
     setenv("SDL_VIDEO_X11_VISUALID", "", 1);
     //The window we'll be rendering to
@@ -107,8 +109,8 @@ int main(int argc, char *argv[]) {
 int createShader2() {
     openGlData.programId = glCreateProgram();
 
-    createShaderFromFile(DATA_DIR "basicVertexShader.glsl", GL_VERTEX_SHADER, openGlData.programId);
-    createShaderFromFile(DATA_DIR "basicFragmentShader.glsl", GL_FRAGMENT_SHADER, openGlData.programId);
+    openGlData.vShader = createShaderFromFile(DATA_DIR "basicVertexShader.glsl", GL_VERTEX_SHADER, openGlData.programId);
+    openGlData.fShader = createShaderFromFile(DATA_DIR "basicFragmentShader.glsl", GL_FRAGMENT_SHADER, openGlData.programId);
     linkProgram(openGlData.programId);
 
     glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -139,9 +141,14 @@ int createShader2() {
 }
 
 void render() {
+    float red = sin(((float)clock())/CLOCKS_PER_SEC);
+    float green = sin(((float)clock())/CLOCKS_PER_SEC + M_PI_2);
+    float blue = sin(((float)clock())/CLOCKS_PER_SEC + M_PI);
+    int vertexColorLocation = glGetUniformLocation(openGlData.programId, "ourColor");
     glUseProgram(openGlData.programId);
+    glUniform4f(vertexColorLocation, red, green, blue, 1.0f);
     glBindVertexArray(openGlData.VAO);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDrawElements(GL_TRIANGLES, obj->faceCount * 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }

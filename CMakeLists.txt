@@ -11,9 +11,9 @@ include_directories(
 if (MINGW)
     link_directories(C:\\MinGW\\lib)
     include_directories(C:\\MinGW\\include)
-    target_link_libraries(game mingw32 SDL2main SDL2 glew32 opengl32 obj glsl)
+    target_link_libraries(game mingw32 SDL2main SDL2 glew32 opengl32 obj glsl m)
 else()
-    target_link_libraries(game SDL2 SDL2main GLEW GL obj glsl)
+    target_link_libraries(game SDL2 SDL2main GLEW GL obj glsl m)
 endif(MINGW)
 
 add_subdirectory(src/obj)

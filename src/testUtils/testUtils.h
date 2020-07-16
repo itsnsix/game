@@ -46,13 +46,15 @@ void initSuite(char *name, void (*setup)(), void (*teardown)()) {
  * @param testDescription - A description of the test so you can find it if it fails
  * @param logicalStatement - logical statement that should evaluate to true if the test passed
  */
-void assert(char *testDescription, int logicalStatement) {
+void _assert(char *testDescription, int logicalStatement, char *fileName, int line) {
     assertCount++;
     if (!logicalStatement) {
-        printf("%s: FAIL\n", testDescription);
+        printf("%s: FAIL -- %s:%d \n", testDescription, fileName, line);
         failCount++;
     }
 }
+
+#define assert(x, y) _assert(x, y, __FILE__, __LINE__)
 
 /**
  * @function printResults

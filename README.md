@@ -64,3 +64,8 @@ You can click to run the game. It currently opens a console window, which I'm no
 
 ## Building on Windows (MSVC)
 TBW
+
+#TODOS
+- Normals not being calculated correctly in OBJs
+- Accepting input
+- Scene Management

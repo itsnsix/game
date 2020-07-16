@@ -21,4 +21,4 @@ set_target_properties(objUtils.test.bin PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CM
 
 add_executable(loadObj.test.bin ./loadObj/loadObj.test.c)
 target_link_libraries(loadObj.test.bin obj)
-target_compile_definitions(loadObj.test.bin PUBLIC TRIANGLE_OBJ_FILE_PATH="${CMAKE_SOURCE_DIR}/data/triangle.obj")
+target_compile_definitions(loadObj.test.bin PUBLIC DATA_DIR="${CMAKE_SOURCE_DIR}/data/")

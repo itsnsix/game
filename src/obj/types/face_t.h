@@ -12,6 +12,12 @@ typedef struct face_t {
     unsigned int vertIndex1;
     unsigned int vertIndex2;
     unsigned int vertIndex3;
+    unsigned int texCoordIndex1;
+    unsigned int texCoordIndex2;
+    unsigned int texCoordIndex3;
+    unsigned int vertNormIndex1;
+    unsigned int vertNormIndex2;
+    unsigned int vertNormIndex3;
     unsigned int index;
     struct face_t *next;
     struct face_t *last;
