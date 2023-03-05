@@ -1,9 +1,7 @@
 
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
-#include <GL/glu.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 #include <math.h>
 #include "src/obj/types/obj_t.h"
@@ -33,9 +31,10 @@ void render();
 
 
 int main(int argc, char *argv[]) {
-    obj = loadObjFromFile(DATA_DIR "plane.obj");
-    setenv("DISPLAY", "127.0.0.1:0", 1);
-    setenv("SDL_VIDEO_X11_VISUALID", "", 1);
+    obj = loadObjFromFile(DATA_DIR "monkey.obj");
+    // xming windows stuff:
+    // setenv("DISPLAY", "127.0.0.1:0", 1);
+    // setenv("SDL_VIDEO_X11_VISUALID", "", 1);
     //The window we'll be rendering to
     openGlData.window = NULL;
     openGlData.context = NULL;
@@ -81,22 +80,25 @@ int main(int argc, char *argv[]) {
     SDL_StartTextInput();
 
     //While application is running
-    int quit = 0;
-    while (!quit) {
-        //Handle events on queue
-        while (SDL_PollEvent(&e) != 0) {
-            //User requests quit
-            if (e.type == SDL_QUIT) {
-                quit = 1;
-            }
-        }
-
-        //Render quad
-        render();
-
-        //Update screen
-        SDL_GL_SwapWindow(openGlData.window);
-    }
+//    int quit = 0;
+//    while (!quit) {
+//        //Handle events on queue
+//        while (SDL_PollEvent(&e) != 0) {
+//            //User requests quit
+//            if (e.type == SDL_QUIT) {
+//                quit = 1;
+//            }
+//        }
+//
+//        //Render quad
+//
+//
+//        //Update screen
+//        //
+//    }
+    render();
+    SDL_GL_SwapWindow(openGlData.window);
+    SDL_Delay(2000);
 
     //Destroy window
     SDL_DestroyWindow(openGlData.window);
@@ -109,8 +111,8 @@ int main(int argc, char *argv[]) {
 int createShader2() {
     openGlData.programId = glCreateProgram();
 
-    openGlData.vShader = createShaderFromFile(DATA_DIR "basicVertexShader.glsl", GL_VERTEX_SHADER, openGlData.programId);
-    openGlData.fShader = createShaderFromFile(DATA_DIR "basicFragmentShader.glsl", GL_FRAGMENT_SHADER, openGlData.programId);
+    createShaderFromFile(DATA_DIR "basicVertexShader.glsl", GL_VERTEX_SHADER, openGlData.programId);
+    createShaderFromFile(DATA_DIR "basicFragmentShader.glsl", GL_FRAGMENT_SHADER, openGlData.programId);
     linkProgram(openGlData.programId);
 
     glClearColor(0.f, 0.f, 0.f, 1.f);

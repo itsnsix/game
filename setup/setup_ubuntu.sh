@@ -1,0 +1,1 @@
+sudo apt install cmake libglew-dev libgl-dev libsdl2-dev valgrind

@@ -3,9 +3,10 @@ project(game)
 
 add_executable(game main.c)
 include_directories(
+        ${CMAKE_SOURCE_DIR}/src/obj/inc
         ${CMAKE_SOURCE_DIR}/src/obj/types
-        ${CMAKE_SOURCE_DIR}/src/obj/loadObj
         ${CMAKE_SOURCE_DIR}/src/obj/utils
+        ${CMAKE_SOURCE_DIR}/src/utils/loadFile
         ${CMAKE_SOURCE_DIR}/src/testUtils)
 
 if (MINGW)
@@ -18,5 +19,7 @@ endif(MINGW)
 
 add_subdirectory(src/obj)
 add_subdirectory(src/glsl)
+add_subdirectory(src/img)
+add_subdirectory(src/utils)
 
 target_compile_definitions(game PUBLIC DATA_DIR="${CMAKE_SOURCE_DIR}/data/")

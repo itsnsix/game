@@ -7,9 +7,8 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <malloc.h>
-#include <errno.h>
 #include <GL/glew.h>
+#include "loadFile.h"
 
 int createShader(const char *source, unsigned int shaderType, unsigned int programId);
 

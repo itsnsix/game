@@ -15,7 +15,7 @@ int createShader(const char *source, unsigned int shaderType, unsigned int progr
     glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
     if (compiled != GL_TRUE) {
         printf("Unable to compile shader %d\n", shader);
-        glGetShaderInfoLog(shader, 512, NULL, infoLog);
+        glGetShaderInfoLog(shader, sizeof(infoLog), NULL, infoLog);
         printf("Error: %s\n", infoLog);
         return -1;
     }
@@ -25,22 +25,10 @@ int createShader(const char *source, unsigned int shaderType, unsigned int progr
 }
 
 int createShaderFromFile(const char *filePath, unsigned int shaderType, unsigned int programId) {
-    FILE *file = fopen(filePath, "r");
-    if (file == NULL) {
-        printf("Couldn't open file. errno: %d\n", errno);
-        return -1;
-    }
-    fseek(file, 0, SEEK_END);
-    long fsize = ftell(file);
-    fseek(file, 0, SEEK_SET);
-
-    char *fileContents = (char *) malloc(sizeof(char) * fsize);
-    fread(fileContents, 1, fsize, file);
-    fclose(file);
-
-    fileContents[fsize] = '\0';
-
-    return createShader(fileContents, shaderType, programId);
+    char *fileContents = loadFile(filePath);
+    int status = createShader(fileContents, shaderType, programId);
+    free(fileContents);
+    return status;
 }
 
 int linkProgram(unsigned int programId) {

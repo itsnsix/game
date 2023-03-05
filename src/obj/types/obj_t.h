@@ -4,8 +4,8 @@
  * @brief Defines the obj_t struct for obj files
  */
 
-#ifndef GAME_OBJ_H
-#define GAME_OBJ_H
+#ifndef GAME_OBJ_T_H
+#define GAME_OBJ_T_H
 #include "vertex_t.h"
 #include "face_t.h"
 #include "texCoord_t.h"
@@ -23,4 +23,4 @@ typedef struct {
     texCoord_t *startTexCoord;
     vertNorm_t *startVertNorm;
 } obj_t;
-#endif //GAME_OBJ_H
+#endif //GAME_OBJ_T_H
