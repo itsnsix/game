@@ -1,7 +1,8 @@
-#version 140
-
-in vec3 LVertexPos3D;
+#version 330
+layout (location = 0) in vec3 position;
+out vec4 vertexColor;
 
 void main() {
-    gl_Position = vec4(LVertexPos3D.x/2.0, LVertexPos3D.y/2.0, LVertexPos3D.z/2.0, 1.0);
+    gl_Position = vec4(position, 1.0);
+    vertexColor = vec4(0.5f, 0.0f, 0.0f, 1.0f);
 }

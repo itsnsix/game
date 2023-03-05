@@ -1,10 +1,9 @@
-#version 140
+#version 330
 
-out vec4 LFragment;
-
+in vec4 vertexColor;
+out vec4 color;
 uniform vec4 ourColor;
 
 void main() {
-    //LFragment = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    LFragment = ourColor;
+    color = ourColor;
 }

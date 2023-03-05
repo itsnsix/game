@@ -80,25 +80,23 @@ int main(int argc, char *argv[]) {
     SDL_StartTextInput();
 
     //While application is running
-//    int quit = 0;
-//    while (!quit) {
-//        //Handle events on queue
-//        while (SDL_PollEvent(&e) != 0) {
-//            //User requests quit
-//            if (e.type == SDL_QUIT) {
-//                quit = 1;
-//            }
-//        }
-//
-//        //Render quad
-//
-//
-//        //Update screen
-//        //
-//    }
-    render();
-    SDL_GL_SwapWindow(openGlData.window);
-    SDL_Delay(2000);
+    int quit = 0;
+    while (!quit) {
+        //Handle events on queue
+        while (SDL_PollEvent(&e) != 0) {
+            //User requests quit
+            if (e.type == SDL_QUIT) {
+                quit = 1;
+            }
+        }
+
+        //Render quad
+        render();
+        SDL_GL_SwapWindow(openGlData.window);
+
+        //Update screen
+        //
+    }
 
     //Destroy window
     SDL_DestroyWindow(openGlData.window);
